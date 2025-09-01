@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cebu Voices Of Hope</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1531545514256-b1400bc00f31?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80') center/cover no-repeat;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .about-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background-color: #f0f0f0;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Stats Section */
+        .stats {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Blog Section */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-image {
+            height: 200px;
+            overflow: hidden;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .blog-card:hover .blog-image img {
+            transform: scale(1.1);
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-date {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .blog-excerpt {
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+
+        .read-more {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.3s ease;
+        }
+
+        .read-more:hover {
+            gap: 10px;
+        }
+
+        /* Events Section */
+        .events-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .event-card {
+            display: flex;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .event-image {
+            flex: 0 0 40%;
+            overflow: hidden;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .event-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-date {
+            background-color: var(--secondary);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 120px;
+        }
+
+        .event-day {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .event-month {
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+
+        .event-details {
+            padding: 1.5rem;
+            flex: 1;
+        }
+
+        .event-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .event-time {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .event-description {
+            margin-bottom: 1rem;
+            color: #666;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1529400971008-f566de0e6dfc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+
+        .footer-col p {
+            margin-bottom: 1rem;
+            color: #ccc;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Fallback for images */
+        .image-fallback {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #999;
+            height: 100%;
+            width: 100%;
+            background-color: #f0f0f0;
+        }
+
+        .image-fallback i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .events-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                gap: 1.5rem;
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+                z-index: 10;
+            }
+
+            nav ul.active {
+                transform: translateY(0);
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .event-card {
+                flex-direction: column;
+            }
+
+            .event-image {
+                height: 200px;
+            }
+
+            .event-date {
+                min-width: auto;
+                padding: 1rem;
+                flex-direction: row;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <h1>Cebu Voices Of Hope</h1>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul id="navMenu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#blogs">Blogs</a></li>
+                    <li><a href="#events">Events</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h2>Bringing Hope to Cebu</h2>
+            <p>Together we can make a difference in the lives of those in need</p>
+            <a href="#about" class="btn">Learn More</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Us</h2>
+                <p>Our mission is to bring hope and support to the most vulnerable communities in Cebu</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Cebu Voices Of Hope was founded in 2015 with a simple mission: to provide support, resources, and hope to the underserved communities across Cebu. We believe that everyone deserves access to basic necessities, education, and opportunities to thrive.</p>
+                    <p>Our organization is driven by passionate volunteers and generous donors who share our vision of a more equitable society. Through various programs and initiatives, we address critical issues such as poverty, education, healthcare, and disaster relief.</p>
+                    <p>Join us in our mission to create lasting change and bring hope to those who need it most. Together, we can build a stronger, more compassionate community for all.</p>
+                    <a href="#events" class="btn">Get Involved</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Community volunteers" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="image-fallback" style="display: none;">
+                        <i class="fas fa-users"></i>
+                        <span>Community Volunteers</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <div class="stat-number">15,000+</div>
+                    <div>People Helped</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <div class="stat-number">50+</div>
+                    <div>Active Programs</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-user-friends"></i>
+                    <div class="stat-number">300+</div>
+                    <div>Volunteers</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-award"></i>
+                    <div class="stat-number">8</div>
+                    <div>Years of Service</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blogs" id="blogs">
+        <div class="container">
+            <div class="section-title">
+                <h2>Latest Stories</h2>
+                <p>Read about our impact and the lives we've touched</p>
+            </div>
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Education program" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="image-fallback" style="display: none;">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Education Program</span>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-date">June 15, 2023</div>
+                        <h3 class="blog-title">Education for All Initiative Reaches 1000 Children</h3>
+                        <p class="blog-excerpt">Our latest education initiative has successfully provided learning resources to over 1000 children in underserved communities across Cebu.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Food distribution" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="image-fallback" style="display: none;">
+                            <i class="fas fa-utensils"></i>
+                            <span>Food Distribution</span>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-date">May 28, 2023</div>
+                        <h3 class="blog-title">Community Kitchen Feeds 500 Families Weekly</h3>
+                        <p class="blog-excerpt">Our community kitchen program has expanded to provide nutritious meals to 500 families every week, addressing food insecurity in vulnerable areas.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Medical mission" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="image-fallback" style="display: none;">
+                            <i class="fas fa-heartbeat"></i>
+                            <span>Medical Mission</span>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-date">May 10, 2023</div>
+                        <h3 class="blog-title">Medical Mission Provides Care to Remote Villages</h3>
+                        <p class="blog-excerpt">Our team of volunteer doctors and nurses traveled to remote villages in Cebu to provide free medical check-ups and essential medicines.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events" id="events">
+        <div class="container">
+            <div class="section-title">
+                <h2>Upcoming Events</h2>
+                <p>Join us in making a difference in our community</p>
+            </div>
+            <div class="events-container">
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1589571894960-20bbe2828d0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="School supplies" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="image-fallback" style="display: none;">
+                            <i class="fas fa-pencil-alt"></i>
+                            <span>School Supplies</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <div class="event-day">15</div>
+                            <div class="event-month">JUL</div>
+                        </div>
+                        <div class="event-details">
+                            <h3 class="event-title">Back-to-School Supply Drive</h3>
+                            <div class="event-time"><i class="far fa-clock"></i> 9:00 AM - 4:00 PM</div>
+                            <p class="event-description">Help us collect school supplies for children in need. Drop-off locations available across Cebu.</p>
+                            <a href="#" class="btn">Register</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Community clean-up" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="image-fallback" style="display: none;">
+                            <i class="fas fa-broom"></i>
+                            <span>Clean-up Day</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <div class="event-day">22</div>
+                            <div class="event-month">JUL</div>
+                        </div>
+                        <div class="event-details">
+                            <h3 class="event-title">Community Clean-Up Day</h3>
+                            <div class="event-time"><i class="far fa-clock"></i> 7:00 AM - 12:00 PM</div>
+                            <p class="event-description">Join us for a community clean-up initiative to help beautify our neighborhoods and promote environmental awareness.</p>
+                            <a href="#" class="btn">Register</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Fundraising gala" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="image-fallback" style="display: none;">
+                            <i class="fas fa-glass-cheers"></i>
+                            <span>Fundraising Gala</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <div class="event-day">05</div>
+                            <div class="event-month">AUG</div>
+                        </div>
+                        <div class="event-details">
+                            <h3 class="event-title">Fundraising Gala Dinner</h3>
+                            <div class="event-time"><i class="far fa-clock"></i> 6:00 PM - 10:00 PM</div>
+                            <p class="event-description">Our annual fundraising event to support our programs for the upcoming year. Enjoy dinner, entertainment, and inspiring stories.</p>
+                            <a href="#" class="btn">Get Tickets</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1532938408859-cf6d073c50a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="Health fair" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="image-fallback" style="display: none;">
+                            <i class="fas fa-stethoscope"></i>
+                            <span>Health Fair</span>
+                        </div>
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <div class="event-day">19</div>
+                            <div class="event-month">AUG</div>
+                        </div>
+                        <div class="event-details">
+                            <h3 class="event-title">Health & Wellness Fair</h3>
+                            <div class="event-time"><i class="far fa-clock"></i> 9:00 AM - 3:00 PM</div>
+                            <p class="event-description">Free health screenings, wellness workshops, and consultations with healthcare professionals for the community.</p>
+                            <a href="#" class="btn">Register</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Make a Difference Today</h2>
+            <p>Your support can change lives. Join our community of donors and volunteers to bring hope to those in need.</p>
+            <a href="https://www.gofundme.com/" class="btn">Donate Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>Cebu Voices Of Hope</h3>
+                    <p>Bringing hope and support to vulnerable communities across Cebu since 2015.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#blogs">Blogs</a></li>
+                        <li><a href="#events">Events</a></li>
+                        <li><a href="#">Donate</a></li>
+                        <li><a href="#">Volunteer</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-phone"></i> +63 991 227 8481</p>
+                    <p><i class="fas fa-envelope"></i> cebuvoicesofhope2025@gmail.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Cebu Voices Of Hope. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animate stats on scroll
+        const animateValue = (element, start, end, duration) => {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                element.textContent = Math.floor(progress * (end - start) + start) + (element.textContent.includes('+') ? '+' : '');
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        };
+
+        // Intersection Observer for stats animation
+        const statsSection = document.querySelector('.stats');
+        const statNumbers = document.querySelectorAll('.stat-number');
+        let animated = false;
+
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !animated) {
+                    animated = true;
+                    statNumbers.forEach(stat => {
+                        const value = parseInt(stat.textContent);
+                        animateValue(stat, 0, value, 2000);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+    </script>
+</body>
+</html>
